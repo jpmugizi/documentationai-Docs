@@ -1,0 +1,121 @@
+---
+title: Changelog
+description: Stay updated with the latest releases, new features, and improvements in Baza Analytics.
+---
+
+## Recent Releases
+
+<Callout kind="info">
+  Baza Analytics releases updates every two weeks. Check your dashboard at `https://dashboard.example.com` for the latest version, or subscribe to our RSS feed for notifications.
+</Callout>
+
+<Update label="2024-10-15" description="v1.3.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added natural language querying with AI-powered insights. Ask questions like "Show top revenue sources last quarter" directly in the interface.
+- Introduced real-time collaboration on reports. Multiple team members can edit and comment simultaneously.
+
+## Improvements
+
+- Enhanced data source integrations with Google Analytics and PostgreSQL, reducing setup time by 40%.
+- Optimized dashboard rendering for datasets `{>1M rows}`.
+
+## Bug Fixes
+
+- Fixed intermittent crashes when exporting large CSV files.
+- Resolved sync issues with Snowflake connectors.
+
+```javascript
+// Example: New AI query API usage
+const response = await fetch('https://api.example.com/v1/query/ai', {
+  method: 'POST',
+  headers: { 'Authorization': `Bearer ${YOUR_API_KEY}` },
+  body: JSON.stringify({ query: 'top revenue sources Q3' })
+});
+```
+
+</Update>
+
+<Update label="2024-09-20" description="v1.2.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Launched scheduled report automation. Set up daily/weekly exports to email or Slack.
+- Added custom visualization builder for heatmaps and Sankey diagrams.
+
+## Improvements
+
+- Improved query performance for `{>100 concurrent users}` with caching layer.
+
+## Bug Fixes
+
+- Patched security vulnerability in OAuth flows (CVE-2024-XXXX).
+- Fixed dashboard refresh loops on mobile devices.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.1.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Beta release of multi-tenant support for enterprise teams.
+- Integrated BigQuery as a first-class data source.
+
+## Breaking Changes
+
+- Updated API version to `v1`. Migrate old endpoints using the upgrade guide.
+
+## Bug Fixes
+
+- Corrected date filtering in time-series visualizations.
+
+</Update>
+
+## Upcoming Roadmap
+
+<Columns cols={3}>
+  <Card title="AI Enhancements" icon="zap" href="#recent-releases">
+    Advanced predictive analytics and anomaly detection coming Q4 2024.
+  </Card>
+  <Card title="More Integrations" icon="database" href="/quickstart">
+    Support for MongoDB, HubSpot, and custom webhooks.
+  </Card>
+  <Card title="Enterprise Features" icon="shield" href="/authentication">
+    Role-based access control and audit logs.
+  </Card>
+</Columns>
+
+## How to Upgrade
+
+<Steps>
+  <Step title="Check Current Version" icon="check-circle">
+
+Visit your dashboard at `https://dashboard.example.com/settings` and note the version.
+
+  </Step>
+  <Step title="Review Changes" icon="book-open">
+
+Read the release notes above and test in staging.
+
+  </Step>
+  <Step title="Update SDK" icon="download">
+    <CodeGroup tabs="npm,yarn">
+````bash
+npm update @baza/analytics-sdk@latest
+````
+````bash
+yarn upgrade @baza/analytics-sdk@latest
+````
+    </CodeGroup>
+  </Step>
+  <Step title="Restart Services" icon="refresh-cw">
+
+Restart your app and verify queries work.
+
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Join our Discord for beta access to upcoming features. Questions? Contact support@bazaanalytics.com.
+</Callout>

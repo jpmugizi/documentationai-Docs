@@ -1,0 +1,170 @@
+---
+title: Data Integrations in Baza Analytics
+description: Connect Baza Analytics to multiple data sources and third-party services to unify your data and enable automated workflows.
+---
+
+## Overview
+
+Baza Analytics supports seamless integrations with popular databases, cloud storage, and third-party APIs. You connect your data sources through the intuitive dashboard at `https://dashboard.example.com/integrations`. This unifies your data for analysis, visualization, and automated insights.
+
+Once connected, Baza automatically syncs data at configurable intervals or in real-time via webhooks. Supported sources include PostgreSQL, MySQL, Google Sheets, Salesforce APIs, and custom REST endpoints.
+
+<Columns cols={3}>
+  <Card title="Databases" icon="database" href="#databases">
+    Connect SQL/NoSQL databases like PostgreSQL and MongoDB.
+  </Card>
+  <Card title="Cloud Storage" icon="cloud" href="#cloud">
+    Integrate Google Drive, S3 buckets, and Sheets.
+  </Card>
+  <Card title="APIs & Apps" icon="zap" href="#apis">
+    Link CRM, marketing tools, and custom endpoints.
+  </Card>
+</Columns>
+
+## Supported Data Sources
+
+Baza Analytics handles a wide range of sources. Use the dashboard to select and configure connections.
+
+| Category       | Examples                  | Sync Type      |
+|----------------|---------------------------|----------------|
+| Databases      | PostgreSQL, MySQL, MongoDB| Scheduled/Real-time |
+| Cloud Storage  | Google Sheets, S3         | On-demand     |
+| Business Apps  | Salesforce, HubSpot       | API Polling   |
+| Custom         | REST APIs, Webhooks       | Event-driven  |
+
+<Callout kind="tip">
+  Start with high-volume sources first to test sync performance.
+</Callout>
+
+## Connecting a Database
+
+Follow these steps to connect a PostgreSQL database.
+
+<Steps>
+  <Step title="Navigate to Integrations" icon="settings">
+    Log in to `https://dashboard.example.com` and select **Integrations** from the sidebar.
+  </Step>
+  <Step title="Choose Source" icon="database">
+    Click **Add Connection** > **Databases** > **PostgreSQL**.
+  </Step>
+  <Step title="Enter Credentials">
+````bash
+Host: your-db-host.example.com
+Port: 5432
+Database: analytics_db
+User: your_username
+Password: YOUR_DB_PASSWORD
+````
+
+    Test the connection before saving.
+  </Step>
+  <Step title="Configure Sync" icon="clock">
+    Set sync interval (e.g., every 15 minutes) and select tables like `sales` and `users`.
+  </Step>
+</Steps>
+
+## API Integrations via UI or Code
+
+Connect REST APIs using the dashboard or direct API calls.
+
+<Tabs>
+  <Tab title="Dashboard UI" icon="monitor">
+    1. Go to **Integrations** > **Custom API**.
+    2. Enter endpoint: `https://api.example.com/v1/orders`.
+    3. Add headers: `Authorization: Bearer YOUR_API_KEY`.
+
+    Baza handles polling and data normalization.
+  </Tab>
+  <Tab title="Direct API Setup" icon="code">
+    Use the Baza API to register endpoints programmatically.
+
+    <CodeGroup tabs="cURL,JavaScript">
+```bash
+curl -X POST https://api.example.com/v1/integrations \
+  -H "Authorization: Bearer YOUR_BAZA_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Salesforce Orders",
+    "endpoint": "https://api.salesforce.com/v1/orders",
+    "auth": {"type": "bearer", "token": "YOUR_SF_TOKEN"},
+    "schedule": "15m"
+  }'
+```
+```javascript
+const response = await fetch('https://api.example.com/v1/integrations', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_BAZA_TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Salesforce Orders',
+    endpoint: 'https://api.salesforce.com/v1/orders',
+    auth: { type: 'bearer', token: 'YOUR_SF_TOKEN' },
+    schedule: '15m'
+  })
+});
+```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+<ParamField path="endpoint" param-type="string" required="true">
+  The target API URL to poll for data.
+</ParamField>
+
+<ParamField header="Authorization" param-type="string" required="false">
+  Bearer token for authenticated endpoints.
+</ParamField>
+
+## Setting Up Webhooks for Real-Time Updates
+
+Enable real-time data by exposing a webhook endpoint in Baza.
+
+1. In dashboard, create a **Webhook Integration**.
+2. Copy your webhook URL: `https://api.example.com/v1/webhooks/your-id`.
+3. Configure your source app to POST events there.
+
+<CodeGroup tabs="JavaScript,Python">
+```javascript
+// Example: Send event from your app
+await fetch('https://api.example.com/v1/webhooks/your-id', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    event: 'order.created',
+    data: { id: 123, amount: 99.99, customer: 'john@example.com' }
+  })
+});
+```
+```python
+import requests
+
+webhook_url = 'https://api.example.com/v1/webhooks/your-id'
+payload = {
+    'event': 'order.created',
+    'data': {'id': 123, 'amount': 99.99, 'customer': 'john@example.com'}
+}
+requests.post(webhook_url, json=payload)
+```
+</CodeGroup>
+
+Baza processes events instantly and updates your datasets.
+
+## Troubleshooting Common Issues
+
+<ExpandableGroup>
+  <Expandable title="Connection Timeout" default-open="true">
+    Increase timeout in settings or check firewall rules. Verify host reachability with `telnet your-db-host.example.com 5432`.
+  </Expandable>
+  <Expandable title="Auth Failures">
+    Regenerate tokens and ensure `Authorization` header uses `Bearer YOUR_TOKEN`. Test with cURL.
+  </Expandable>
+  <Expandable title="Sync Delays">
+    Upgrade to real-time webhooks or reduce interval. Monitor usage limits.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="alert">
+  Always use secure credentials. Never expose `YOUR_API_KEY` in client-side code.
+</Callout>

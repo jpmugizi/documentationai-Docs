@@ -1,0 +1,133 @@
+---
+title: Getting Started with Baza Analytics
+description: Set up your account, access the dashboard, and connect your first data source to begin analyzing data immediately.
+---
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+<Callout kind="info">
+
+- A valid email address for account verification
+- Access to a data source like Google Sheets or PostgreSQL
+- A modern web browser (Chrome, Firefox, or Safari recommended)
+
+</Callout>
+
+## Create and Verify Your Account
+
+Sign up for Baza Analytics in under two minutes.
+
+<Steps>
+  <Step title="Visit the signup page" icon="external-link">
+    Navigate to [https://dashboard.bazaanalytics.com/signup](https://dashboard.bazaanalytics.com/signup).
+  </Step>
+  <Step title="Enter your details" icon="user">
+    Provide your email, create a strong password, and accept the terms.
+  </Step>
+  <Step title="Verify your email" icon="mail">
+    Check your inbox for a verification email from Baza Analytics and click the link.
+  </Step>
+  <Step title="Log in" icon="log-in">
+    Return to the dashboard and sign in with your verified credentials.
+  </Step>
+</Steps>
+
+## Dashboard Navigation
+
+Once logged in, you land on the main dashboard. Use these key sections to get started:
+
+<Columns cols={3}>
+  <Card title="Queries" icon="database" href="#queries">
+    Build and run SQL or natural language queries on your data.
+  </Card>
+  <Card title="Data Sources" icon="cloud" href="#data-sources">
+    Connect databases, spreadsheets, and APIs.
+  </Card>
+  <Card title="Reports" icon="bar-chart-3" href="#reports">
+    Share insights with your team via collaborative dashboards.
+  </Card>
+</Columns>
+
+## Connect Your First Data Source
+
+Baza Analytics supports multiple sources. Choose your preferred method below.
+
+<Tabs>
+  <Tab title="Google Sheets" icon="file-spreadsheet">
+    <Steps>
+      <Step title="Authorize Google" icon="apple">
+        Click `Connect Google Sheets` and grant permissions.
+      </Step>
+      <Step title="Select sheet">
+        Choose your spreadsheet and specific sheet (e.g., `Sales Data`).
+      </Step>
+    </Steps>
+
+    <Callout kind="tip">
+      Ensure your sheet is publicly accessible or shared with your Baza account.
+    </Callout>
+  </Tab>
+
+  <Tab title="PostgreSQL" icon="database">
+    In the dashboard, select `Add Database` and enter these details:
+
+    ```
+    Host: your-db-host.example.com
+    Port: 5432
+    Database: baza_analytics
+    User: your_username
+    Password: `YOUR_DB_PASSWORD`
+    ```
+
+    Test the connection before saving.
+  </Tab>
+</Tabs>
+
+## Run Your First Query
+
+With data connected, explore it immediately.
+
+<Steps>
+  <Step title="Open Query Editor" icon="edit-3">
+    Click `New Query` in the dashboard.
+  </Step>
+  <Step title="Write and execute" icon="play">
+    Enter a query and click `Run`. View results in real-time charts.
+  </Step>
+</Steps>
+
+Here is a sample query on sales data:
+
+<CodeGroup tabs="SQL,Natural Language">
+  ```sql
+  SELECT 
+    region, 
+    SUM(revenue) as total_revenue,
+    AVG(units_sold) as avg_units
+  FROM sales
+  WHERE date > '2024-01-01'
+  GROUP BY region
+  ORDER BY total_revenue DESC;
+  ```
+
+  ```text
+  Show total revenue and average units sold by region for sales after January 1, 2024, sorted by revenue.
+  ```
+</CodeGroup>
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card title="Learn Authentication" icon="shield" href="/authentication">
+    Secure your API access and team permissions.
+  </Card>
+  <Card title="Explore Concepts" icon="book-open" href="/introduction">
+    Dive into core features and best practices.
+  </Card>
+</Columns>
+
+<Callout kind="success">
+  Congratulations! You are now analyzing data with Baza Analytics. Share your first report with `team@bazaanalytics.com`.
+</Callout>
